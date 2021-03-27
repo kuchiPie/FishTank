@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html> 
+ <head>
+    <title>Processing.JS inside Webpages: Template</title> 
+</head>
+ <body>
+    <p align="center"> 
+	<!--This draws the Canvas on the webpage -->
+      <canvas id="mycanvas"></canvas> 
+    </p>
+ </body>
+ 
+ <!-- Run all the JavaScript stuff -->
+ <!-- Include the processing.js library -->
+ <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+ <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ 
+ <script>
+    var sketchProc = function(processingInstance) {
+     with (processingInstance) {
+        size(1000, 500); 
+        frameRate(30);
+        
+        // ProgramCodeGoesHere
+        background(89, 216, 255);
+var drawFish = function( centerX, centerY, R, G, B){
+
+var bodyLength = 118;
+var bodyHeight = 74;
+var bodyColor = color(R, G, B);
+
+noStroke();
+fill(bodyColor);
+// body
+ellipse(centerX, centerY, bodyLength, bodyHeight);
+// tail
+var tailWidth = bodyLength/4;
+var tailHeight = bodyHeight/2;
+triangle(centerX-bodyLength/2, centerY,
+         centerX-bodyLength/2-tailWidth, centerY-tailHeight,
+         centerX-bodyLength/2-tailWidth, centerY+tailHeight);
+// eye
+fill(33, 33, 33);
+ellipse(centerX+bodyLength/4, centerY, bodyHeight/5, bodyHeight/5);
+};         
+drawFish(200, 200, 50, 50, 50);                
+fill(77, 31, 0);
+var drawSeaWeed = function(A){
+triangle(A, 400, A - 10, 500, A + 10, 500);
+triangle(A + 10 , 400, A , 500, A + 20, 500);
+triangle(A + 20, 400, A + 10, 500, A + 30, 500);
+};
+var i;
+for (i = 0; i < 20 ; i++){
+drawSeaWeed(i*50)
+}
+
+mouseClicked = function(){
+    var ran1 = random(1, 200);
+    var ran2 = random(1, 200);
+    var ran3 = random(1, 200);
+    drawFish(mouseX, mouseY, ran1, ran2, ran3);
+    textSize(10);
+    fill(255, 255, 255);
+    text("R: " + Math.round(ran1) + " G: " + Math.round(ran2) + " B: " + Math.round(ran3), mouseX - 50, mouseY);
+};
+textSize(18);
+text("Click around to add even more colorful fishes", 10, 30);
+
+    }};
+
+    // Get the canvas that Processing-js will use
+    var canvas = document.getElementById("mycanvas"); 
+    // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
+    var processingInstance = new Processing(canvas, sketchProc); 
+ </script>
+
+</html>
